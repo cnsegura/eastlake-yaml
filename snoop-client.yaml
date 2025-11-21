@@ -16,13 +16,13 @@ metadata:
   namespace: azure-iot-operations
 spec:
   serviceAccountName: bacnet-snoop
+  hostNetwork: true   # Uses host network namespace
   containers:
   # Install bacnet-snoop container image from ACR
   - image: eastlake.azurecr.io/bacnet-snoop:latest
     name: bacnet-snoop
     securityContext:
       privileged: true  # Gives full host access
-    hostNetwork: true   # Uses host network namespace
     volumeMounts:
     - name: broker-sat
       mountPath: /var/run/secrets/tokens
