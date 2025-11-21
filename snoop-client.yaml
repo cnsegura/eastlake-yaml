@@ -17,7 +17,7 @@ metadata:
 spec:
   serviceAccountName: bacnet-snoop
   containers:
-    # Install bacnet-snoop container image from ACR
+  # Install bacnet-snoop container image from ACR
   - image: eastlake.azurecr.io/bacnet-snoop:latest
     name: bacnet-snoop
     securityContext:
