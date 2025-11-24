@@ -16,7 +16,7 @@ metadata:
   namespace: azure-iot-operations
 spec:
   serviceAccountName: bacnet-snoop
-  hostNetwork: true   # Uses host network namespace
+  #hostNetwork: true   # Uses host network namespace
   containers:
   # Install bacnet-snoop container image from ACR
   - image: eastlake.azurecr.io/bacnet-snoop:latest
