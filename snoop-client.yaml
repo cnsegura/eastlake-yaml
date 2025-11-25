@@ -17,6 +17,7 @@ metadata:
 spec:
   serviceAccountName: bacnet-snoop
   hostNetwork: true   # Uses host network namespace
+  dnsPolicy: ClusterFirstWithHostNet
   containers:
   # Install bacnet-snoop container image from ACR
   - image: eastlake.azurecr.io/bacnet-snoop:latest
