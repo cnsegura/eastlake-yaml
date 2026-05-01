@@ -1,29 +1,29 @@
-# Important: do not use in production environments
-# Create a service account
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: bacnet-snoop
   namespace: azure-iot-operations
 ---
-# Creates a pod with mosquitto-clients and mqttui utilities in your cluster
 apiVersion: v1
 kind: Pod
 metadata:
   name: bacnet-snoop
-  # The namespace must match the IoT MQ BrokerListener's namespace
-  # Otherwise use the long hostname: aio-broker.azure-iot-operations.svc.cluster.local
   namespace: azure-iot-operations
 spec:
   serviceAccountName: bacnet-snoop
-  hostNetwork: true   # Uses host network namespace
+  hostNetwork: true
   dnsPolicy: ClusterFirstWithHostNet
   containers:
-  # Install bacnet-snoop container image from ACR
   - image: eastlake.azurecr.io/bacnet-snoop:latest
     name: bacnet-snoop
+    env:
+    - name: SNOOP_INTERFACE
+      value: "enp0s13f0u4c2"
+    - name: BACNET_IFACE
+      value: "enp0s13f0u4c2"
     securityContext:
-      privileged: true  # Gives full host access
+      capabilities:
+        add: ["NET_RAW", "NET_ADMIN"]
     volumeMounts:
     - name: broker-sat
       mountPath: /var/run/secrets/tokens
@@ -35,8 +35,8 @@ spec:
       sources:
       - serviceAccountToken:
           path: broker-sat
-          audience: aio-internal # Must match audience in BrokerAuthentication
+          audience: aio-internal
           expirationSeconds: 86400
   - name: trust-bundle
     configMap:
-      name: azure-iot-operations-aio-ca-trust-bundle # Default root CA cert
+      name: azure-iot-operations-aio-ca-trust-bundle
