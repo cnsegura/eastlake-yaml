@@ -11,6 +11,8 @@ metadata:
   namespace: azure-iot-operations
 spec:
   serviceAccountName: bacnet-snoop
+  imagePullSecrets:
+    - name: acr-secret
   hostNetwork: true
   dnsPolicy: ClusterFirstWithHostNet
   containers:
