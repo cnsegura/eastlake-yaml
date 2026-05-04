@@ -7,7 +7,7 @@ metadata:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: bacnet-snoop
+  name: el-bacsnp
   namespace: azure-iot-operations
 spec:
   serviceAccountName: bacnet-snoop
